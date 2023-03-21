@@ -20,9 +20,15 @@ import com.springboot.demo.service.StudentService;
 public class StudentRestController {
 	
 	@Autowired
-	private StudentService studentService;;
+	private StudentService studentService;
 	
-	@GetMapping("/student")
+	@GetMapping("/student/{id}")
+	public ResponseEntity<Student> getStudentById(@PathVariable Integer id) {
+		Student student = studentService.getById(id);
+		return new ResponseEntity<>(student, HttpStatus.OK);
+	}
+	
+	@GetMapping("/students")
 	public ResponseEntity<List<Student>> getStudents() {
 		List<Student> students = studentService.getAll();
 		return new ResponseEntity<>(students, HttpStatus.OK);
